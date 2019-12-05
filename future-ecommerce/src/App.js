@@ -1,12 +1,12 @@
 import React from 'react';
-import './App.css';
+import './App.css'
+import ContainerEcommerce from './components/ContainerEcommerce/ContainerEcommerce'
+
 
 function App() {
   return (
-    <div className="App">
-
-    </div>
-  );
+    <ContainerEcommerce />
+ );
 }
 
 export default App;
