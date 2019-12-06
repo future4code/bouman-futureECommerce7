@@ -17,17 +17,21 @@ const TituloContainer = styled.div`
     padding:0 10px;
     margin-bottom:10px;
 `;
+
 const TituloTexto = styled.p`
     font-weight:bold; 
     color:#878787; 
 `;
+
 const FiltroContainer = styled.div`
     display:flex;
     flex-direction:column;
     justify-content:center;
     align-items:flex-start;
     padding-left:15px;
+
 `;
+
 const FiltroInputFalso = styled.div`
     border: 1px solid #878787;
     display:flex;
@@ -35,12 +39,15 @@ const FiltroInputFalso = styled.div`
     margin-bottom:10px;
     height:20px;
     align-items:center;
+
 `;
+
 const LabelDeInputFalso = styled.label` 
     padding-left:5px;
     color: #878787;
     font-size:0.9em;
 `;
+
 const LabelCifraInputFalso = styled.label`
     padding-left:5px;
     color: #878787;
@@ -48,12 +55,14 @@ const LabelCifraInputFalso = styled.label`
     margin-right:5px;
     font-size:0.8em;
 `;
+
 const FiltroInput = styled.input`
     width:100%;
     margin: 0;
     padding-left:5px;
     border:0;
 `;
+
 class ContainerFiltro extends React.Component {
     constructor(props){
         super(props);
@@ -71,11 +80,13 @@ class ContainerFiltro extends React.Component {
             },
         }
     }
+
 /* funções */
     /* controle de inputs gerais */    
     controladorInputs = event => {
         const name = event.target.name;
         const value = event.target.value;
+
         this.setState({
             formControls:{
                 ...this.state.formControls,
@@ -86,8 +97,15 @@ class ContainerFiltro extends React.Component {
             }
         });
         console.log(this.state.formControls)
+
+
+        
     }
+
+
+
     /* render */
+
 	render(){
 		return (
         <MainContainer>
