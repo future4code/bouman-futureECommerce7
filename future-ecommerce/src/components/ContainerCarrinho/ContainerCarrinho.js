@@ -41,8 +41,11 @@ const TextoItem = styled.p`
 `
 
 const RemoveItem = styled.p`
+    cursor:pointer;
     &:hover {color: red}
 `
+
+
 
 function ContainerCarrinho(props) {
     return (
@@ -56,13 +59,13 @@ function ContainerCarrinho(props) {
                 return (
                     <ItensNoCarrinho>
                         <TextoItem>{produto.quantidade}X {produto.nome}</TextoItem>
-                        <RemoveItem>X</RemoveItem>
+                        <RemoveItem onClick={() =>{props.removeItem(produto.id)}}>X</RemoveItem>
                     </ItensNoCarrinho>
                 )
              } )}
 
             <TextoTotal>
-                Total: <b>R$0.00</b>
+                Total: <b>R${parseFloat(props.valorTotal).toFixed(2)}</b>
             </TextoTotal>
 
         </MainContainer>

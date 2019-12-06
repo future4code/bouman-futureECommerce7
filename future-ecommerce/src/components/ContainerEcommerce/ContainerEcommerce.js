@@ -38,7 +38,7 @@ const arrayDeProdutos = [
     
     { id: 6,
     name: "SpaceX",
-    price: 210.0,
+    price: 210.50,
     imgURL: "https://ciberia.com.br/wp-content/uploads/2017/05/612cd3bca888734ca843c6eb30f0e089-783x450.jpeg?x16490"},
     
     { id: 7,
@@ -57,7 +57,8 @@ class ContainerEcommerce extends React.Component {
         super(props)
         this.state = {
             listaProdutos: arrayDeProdutos,
-            listaCarrinho: [0],
+            listaCarrinho: [],
+            totalCarrinho:0.00,
         }
     }
 
@@ -77,38 +78,79 @@ class ContainerEcommerce extends React.Component {
         })}
         this.setState({listaProdutos: listaProdutosFiltrada})
     }
-
     listarItensCarrinho = (idProduto) => {
         console.log("id", idProduto)
         const listaCarrinhoCopia = [...this.state.listaCarrinho]
-        debugger
-        if (listaCarrinhoCopia === [0]) {
+        /* debugger */
+        if (listaCarrinhoCopia.length === 0) {
             const indexDoItem = arrayDeProdutos.findIndex (produto => {
                 return produto.id === idProduto
             })
             const novoItemCarrinho =
                 { id: arrayDeProdutos[indexDoItem].id,
                     quantidade: 1,
-                    nome: arrayDeProdutos[indexDoItem].nome
+                    nome: arrayDeProdutos[indexDoItem].name,
+                    preco: arrayDeProdutos[indexDoItem].price
                 }
             listaCarrinhoCopia.push(novoItemCarrinho)
         } else {
-            for (let item of listaCarrinhoCopia) {
-                if (item.id === idProduto) {
-                    item.quantidade += 1
+            const indexDoItemCarrinho = listaCarrinhoCopia.findIndex (produto => {
+                return produto.id === idProduto})
+
+                if (indexDoItemCarrinho>= 0 ) {
+                    listaCarrinhoCopia[indexDoItemCarrinho].quantidade += 1
                 } else {
                     const indexDoItem = arrayDeProdutos.findIndex (produto => {
                         return produto.id === idProduto
                     })
                     const novoItemCarrinho = {id: arrayDeProdutos[indexDoItem].id,
                         quantidade: 1,
-                        nome: arrayDeProdutos[indexDoItem].nome}
+                        nome: arrayDeProdutos[indexDoItem].name,
+                        preco: arrayDeProdutos[indexDoItem].price}
                     listaCarrinhoCopia.push(novoItemCarrinho)
                 }
-            }
+            
         }
-        this.setState({listaCarrinho: listaCarrinhoCopia})
-        console.log(this.state.listaCarrinho)
+        
+       /*  let totalCarrinhoCopia = 0
+        for (const item of listaCarrinhoCopia){
+            totalCarrinhoCopia += item.preco*item.quantidade
+        } */
+
+        this.setState({ listaCarrinho: listaCarrinhoCopia/* ,
+                        totalCarrinho: totalCarrinhoCopia */
+        },()=>{
+            this.atualizarPrecoTotal()
+        })
+        
+    }
+
+    atualizarPrecoTotal =() =>{
+        let totalCarrinhoCopia = 0
+        const listaCarrinhoCopia = [...this.state.listaCarrinho]
+        for (const item of listaCarrinhoCopia){
+            totalCarrinhoCopia += item.preco*item.quantidade
+        }
+        this.setState({totalCarrinho: totalCarrinhoCopia})
+    }
+
+    removerProduto = (idProduto) =>{
+        const listaCarrinhoCopia = [...this.state.listaCarrinho]
+        const indexARemover = listaCarrinhoCopia.findIndex(produto =>{
+            return produto.id === idProduto
+        })
+
+        listaCarrinhoCopia.splice(indexARemover,1)
+        
+        /* let totalCarrinhoCopia = 0
+        for (const item of listaCarrinhoCopia){
+            totalCarrinhoCopia += item.preco*item.quantidade
+        } */
+
+        this.setState({listaCarrinho:listaCarrinhoCopia/* , totalCarrinho: totalCarrinhoCopia */},() =>{
+            this.atualizarPrecoTotal()
+        })
+        
     }
 
     render(){
@@ -116,7 +158,7 @@ class ContainerEcommerce extends React.Component {
             <MainContainer>
                 <ContainerFiltro transporteDeFiltros={this.filtrarProdutos} listaDosProdutos={this.state.listaProdutos} />
                 <ContainerProdutos mostrarItensCarrinho ={this.listarItensCarrinho} listaDosProdutos={this.state.listaProdutos}  />
-                <ContainerCarrinho listaItensCarrinho={this.state.listaCarrinho} />
+                <ContainerCarrinho removeItem={this.removerProduto} valorTotal={this.state.totalCarrinho} listaItensCarrinho={this.state.listaCarrinho} />
             </MainContainer>
         )
     }

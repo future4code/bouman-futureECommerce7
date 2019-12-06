@@ -22,17 +22,12 @@ const BotaoAdicionar = styled.button`
 `
 
 function ProdutoUnico(props){
-    // const aoClicarAdicionar = () => {
-    //     const produto = {props.produtosParaExibir.id}
-    //     props.mostrarCarrinho(produto)
-    // }
     return (
         <MainContainer>
             <ImagemProduto src={props.produtosParaExibir.imgURL}/>
             <p>{props.produtosParaExibir.name}</p>
-            <p>R${props.produtosParaExibir.price}</p>
+            <p>R${parseFloat(props.produtosParaExibir.price).toFixed(2)}</p>
             <BotaoAdicionar onClick={() => {
-                console.log("cliquei", props.produtosParaExibir.id)
                 props.mostrarCarrinho(props.produtosParaExibir.id)}}>Adicionar ao Carrinho</BotaoAdicionar>
         </MainContainer>
     )
