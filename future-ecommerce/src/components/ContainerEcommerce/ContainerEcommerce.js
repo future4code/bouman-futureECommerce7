@@ -3,6 +3,8 @@ import styled from "styled-components"
 import ContainerFiltro from '../ContainerFiltro/ContainerFiltro'
 import ContainerProdutos from '../ContainerProdutos/ContainerProdutos'
 import ContainerCarrinho from '../ContainerCarrinho/ContainerCarrinho'
+import ImagemCarrinho from '../../img/shopping-cart.svg'
+
 
 const MainContainer = styled.div`
     border: 1px solid red;
@@ -10,6 +12,18 @@ const MainContainer = styled.div`
     justify-content: space-between;
     height: 100vh;
 `
+const ImgCarrinho =styled.img`
+    position: fixed;
+    bottom:0;
+    right:0;
+    margin:20px;
+    padding:4px;
+    border:1px solid black;
+    border-radius:50%; 
+    height:75px;
+    
+`;
+
 const arrayDeProdutos = [
     { id: 1,
     name: "Sputnik-1" ,
@@ -59,6 +73,7 @@ class ContainerEcommerce extends React.Component {
             listaProdutos: arrayDeProdutos,
             listaCarrinho: [],
             totalCarrinho:0.00,
+            estadoCarrinho:false
         }
     }
 
@@ -150,15 +165,48 @@ class ContainerEcommerce extends React.Component {
         this.setState({listaCarrinho:listaCarrinhoCopia/* , totalCarrinho: totalCarrinhoCopia */},() =>{
             this.atualizarPrecoTotal()
         })
-        
     }
+    sortProdutos = (value) =>{
+        let listaProdutosCopia = [...this.state.listaProdutos]
+debugger
+        if(value==="decrescente"){
+            listaProdutosCopia.sort(function(a,b){
+                return parseFloat(a.price) > parseFloat(b.price) ? -1 : parseFloat(a.price) < parseFloat(b.price) ? 1 : 0
+            })  
+        }else if(value==="crescente"){
+            listaProdutosCopia.sort(function(a,b){
+            return parseFloat(a.price) > parseFloat(b.price) ? 1 : parseFloat(a.price) < parseFloat(b.price) ? -1 : 0
+        
+            })
+        } else{
+            listaProdutosCopia=[...arrayDeProdutos]
+        }
+
+        this.setState({
+            listaProdutos:listaProdutosCopia
+        })
+        console.log(this.state.listaProdutos)
+    }
+
+    aparecerCarrinho = () =>{
+        let estadoCarrinhoCopia = this.state.estadoCarrinho
+        estadoCarrinhoCopia = !estadoCarrinhoCopia
+        this.setState({
+            estadoCarrinho :estadoCarrinhoCopia
+        })
+    }
+
+    
 
     render(){
         return(
             <MainContainer>
                 <ContainerFiltro transporteDeFiltros={this.filtrarProdutos} listaDosProdutos={this.state.listaProdutos} />
-                <ContainerProdutos mostrarItensCarrinho ={this.listarItensCarrinho} listaDosProdutos={this.state.listaProdutos}  />
-                <ContainerCarrinho removeItem={this.removerProduto} valorTotal={this.state.totalCarrinho} listaItensCarrinho={this.state.listaCarrinho} />
+                <ContainerProdutos organizaProdutos={this.sortProdutos} mostrarItensCarrinho ={this.listarItensCarrinho} listaDosProdutos={this.state.listaProdutos}  />
+                {this.state.estadoCarrinho && 
+                <ContainerCarrinho removeItem={this.removerProduto} valorTotal={this.state.totalCarrinho} listaItensCarrinho={this.state.listaCarrinho}/>}
+                <ImgCarrinho onClick={this.aparecerCarrinho} src="https://cdn0.iconfinder.com/data/icons/shopping-cart-26/1000/Shopping-Basket-03-512.png"/>
+
             </MainContainer>
         )
     }

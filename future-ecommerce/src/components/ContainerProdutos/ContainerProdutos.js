@@ -19,24 +19,51 @@ const Conteudo = styled.div`
     justify-content: space-evenly;
 `
 
-function ContainerProdutos(props) {
-    return (
-        <MainContainer>
-            <Header>
-                <p>Quantidade de produtos: </p>
-                <select>
-                    <option>Preço: Crescente</option>
-                    <option>Preço: Decrescente</option>
-                </select>
-            </Header>
-            <Conteudo>
-            {props.listaDosProdutos.map( cadaProduto => {
-                return <ProdutoUnico mostrarCarrinho={props.mostrarItensCarrinho} produtosParaExibir={cadaProduto} />
-                })
-            }
-            </Conteudo>
-        </MainContainer>
-    )
+class ContainerProdutos extends React.Component {
+    constructor(props){
+        super(props);
+
+        this.state = {
+            selectStatus : "vazio"
+
+        }
+    }
+
+
+
+    controleFiltro = e => {
+
+        console.log("clicou")
+        this.setState({
+          selectStatus: e.target.value
+        },()=>{
+            this.props.organizaProdutos(this.state.selectStatus)
+        });
+    
+    }
+
+
+    render(){
+        return (
+            <MainContainer>
+                <Header>
+                    <p>Quantidade de produtos: </p>
+                    <select value={this.state.selectStatus} onChange={this.controleFiltro}>
+                    <option value="vazio"></option>
+                        <option value="crescente">Preço: Crescente</option>
+                        <option value="decrescente">Preço: Decrescente</option>
+                    </select>
+                </Header>
+                <Conteudo>
+                {this.props.listaDosProdutos.map( cadaProduto => {
+                    return <ProdutoUnico mostrarCarrinho={this.props.mostrarItensCarrinho} produtosParaExibir={cadaProduto} />
+                    })
+                }
+                </Conteudo>
+            </MainContainer>
+        )
+    }
+    
 }
 
 export default ContainerProdutos;
