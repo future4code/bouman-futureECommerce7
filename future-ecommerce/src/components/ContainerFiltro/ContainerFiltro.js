@@ -103,8 +103,27 @@ class ContainerFiltro extends React.Component {
         }, () => {this.props.transporteDeFiltros(this.state.formControls.valorMin.value,
             this.state.formControls.valorMax.value,
             this.state.formControls.filtro.value)
-            console.log("funcao aleatoria", this.state.formControls)});
+            });
     }
+
+
+    inputControladoSlider = (min,max)=>{
+        this.setState({
+            formControls:{
+                ...this.state.formControls,
+                valorMin: {
+                    value: min
+                },
+                valorMax: {
+                    value: max
+                },
+            }
+        }, () => {this.props.transporteDeFiltros(this.state.formControls.valorMin.value,
+            this.state.formControls.valorMax.value,
+            this.state.formControls.filtro.value)
+        }
+        )};
+
 
     /* render */
 
@@ -134,9 +153,8 @@ class ContainerFiltro extends React.Component {
                                     onChange={this.controladorInputs}
                     />
                 </FiltroInputFalso>
-                <RangeSlider></RangeSlider>
+                <RangeSlider importaValores={this.inputControladoSlider}></RangeSlider>
             </FiltroContainer>
-            
             <TituloContainer>
                 <TituloTexto>Buscar</TituloTexto>
                 <TituloTexto>―</TituloTexto>
