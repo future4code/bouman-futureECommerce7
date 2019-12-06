@@ -31,7 +31,7 @@ function ContainerProdutos(props) {
             </Header>
             <Conteudo>
             {props.listaDosProdutos.map( cadaProduto => {
-                return <ProdutoUnico produtosParaExibir={cadaProduto} />
+                return <ProdutoUnico mostrarCarrinho={props.mostrarItensCarrinho} produtosParaExibir={cadaProduto} />
                 })
             }
             </Conteudo>

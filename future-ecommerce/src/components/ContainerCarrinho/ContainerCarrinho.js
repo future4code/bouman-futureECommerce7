@@ -44,17 +44,23 @@ const RemoveItem = styled.p`
     &:hover {color: red}
 `
 
-function ContainerCarrinho() {
+function ContainerCarrinho(props) {
     return (
         <MainContainer>
             <TituloContainer>
                 <TituloTexto>Carrinho</TituloTexto>
                 <TituloTexto>―</TituloTexto>
             </TituloContainer>
-            <ItensNoCarrinho>
-                <TextoItem>Item</TextoItem>
-                <RemoveItem>X</RemoveItem>
-            </ItensNoCarrinho>
+
+            {props.listaItensCarrinho.map( produto => {
+                return (
+                    <ItensNoCarrinho>
+                        <TextoItem>{produto.quantidade}X {produto.nome}</TextoItem>
+                        <RemoveItem>X</RemoveItem>
+                    </ItensNoCarrinho>
+                )
+             } )}
+
             <TextoTotal>
                 Total: <b>R$0.00</b>
             </TextoTotal>

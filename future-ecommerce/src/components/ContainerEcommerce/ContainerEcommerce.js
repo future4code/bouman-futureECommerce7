@@ -57,6 +57,7 @@ class ContainerEcommerce extends React.Component {
         super(props)
         this.state = {
             listaProdutos: arrayDeProdutos,
+            listaCarrinho: [0],
         }
     }
 
@@ -77,12 +78,45 @@ class ContainerEcommerce extends React.Component {
         this.setState({listaProdutos: listaProdutosFiltrada})
     }
 
+    listarItensCarrinho = (idProduto) => {
+        console.log("id", idProduto)
+        const listaCarrinhoCopia = [...this.state.listaCarrinho]
+        debugger
+        if (listaCarrinhoCopia === [0]) {
+            const indexDoItem = arrayDeProdutos.findIndex (produto => {
+                return produto.id === idProduto
+            })
+            const novoItemCarrinho =
+                { id: arrayDeProdutos[indexDoItem].id,
+                    quantidade: 1,
+                    nome: arrayDeProdutos[indexDoItem].nome
+                }
+            listaCarrinhoCopia.push(novoItemCarrinho)
+        } else {
+            for (let item of listaCarrinhoCopia) {
+                if (item.id === idProduto) {
+                    item.quantidade += 1
+                } else {
+                    const indexDoItem = arrayDeProdutos.findIndex (produto => {
+                        return produto.id === idProduto
+                    })
+                    const novoItemCarrinho = {id: arrayDeProdutos[indexDoItem].id,
+                        quantidade: 1,
+                        nome: arrayDeProdutos[indexDoItem].nome}
+                    listaCarrinhoCopia.push(novoItemCarrinho)
+                }
+            }
+        }
+        this.setState({listaCarrinho: listaCarrinhoCopia})
+        console.log(this.state.listaCarrinho)
+    }
+
     render(){
         return(
             <MainContainer>
                 <ContainerFiltro transporteDeFiltros={this.filtrarProdutos} listaDosProdutos={this.state.listaProdutos} />
-                <ContainerProdutos listaDosProdutos={this.state.listaProdutos}  />
-                <ContainerCarrinho />
+                <ContainerProdutos mostrarItensCarrinho ={this.listarItensCarrinho} listaDosProdutos={this.state.listaProdutos}  />
+                <ContainerCarrinho listaItensCarrinho={this.state.listaCarrinho} />
             </MainContainer>
         )
     }
