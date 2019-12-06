@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
-
 const MainContainer = styled.div`
     border: 1px solid #878787;
     width: 15%;
@@ -30,7 +29,7 @@ const FiltroContainer = styled.div`
     justify-content:center;
     align-items:flex-start;
     padding-left:15px;
-    
+
 `;
 
 const FiltroInputFalso = styled.div`
@@ -40,7 +39,7 @@ const FiltroInputFalso = styled.div`
     margin-bottom:10px;
     height:20px;
     align-items:center;
-    
+
 `;
 
 const LabelDeInputFalso = styled.label` 
@@ -64,7 +63,6 @@ const FiltroInput = styled.input`
     border:0;
 `;
 
-
 class ContainerFiltro extends React.Component {
     constructor(props){
         super(props);
@@ -85,9 +83,7 @@ class ContainerFiltro extends React.Component {
 
 /* funções */
     /* controle de inputs gerais */    
-    
     controladorInputs = event => {
-
         const name = event.target.name;
         const value = event.target.value;
 
@@ -101,6 +97,8 @@ class ContainerFiltro extends React.Component {
             }
         });
         console.log(this.state.formControls)
+
+
         
     }
 
@@ -153,5 +151,4 @@ class ContainerFiltro extends React.Component {
         )
     }
 }
-
 export default ContainerFiltro;
