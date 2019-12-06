@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
+import RangeSlider from '../Slider/slider.js'
 
 const MainContainer = styled.div`
     border: 1px solid #878787;
-    width: 15%;
+    width: 200px;
     border-radius:5px;
-    height:175px;
+    height:220px;
     margin:5px;
 `
 const TituloContainer = styled.div`
@@ -101,8 +102,26 @@ class ContainerFiltro extends React.Component {
         }, () => {this.props.transporteDeFiltros(this.state.formControls.valorMin.value,
             this.state.formControls.valorMax.value,
             this.state.formControls.filtro.value)
-            console.log("funcao aleatoria", this.state.formControls)});
+            });
     }
+
+    inputControladoSlider = (min,max)=>{
+        this.setState({
+            formControls:{
+                ...this.state.formControls,
+                valorMin: {
+                    value: min
+                },
+                valorMax: {
+                    value: max
+                },
+            }
+        }, () => {this.props.transporteDeFiltros(this.state.formControls.valorMin.value,
+            this.state.formControls.valorMax.value,
+            this.state.formControls.filtro.value)
+        }
+        )};
+
 
     /* render */
 
@@ -132,9 +151,10 @@ class ContainerFiltro extends React.Component {
                                     onChange={this.controladorInputs}
                     />
                 </FiltroInputFalso>
+                <RangeSlider importaValores={this.inputControladoSlider}></RangeSlider>
             </FiltroContainer>
             <TituloContainer>
-                <TituloTexto>Filtro</TituloTexto>
+                <TituloTexto>Buscar</TituloTexto>
                 <TituloTexto>―</TituloTexto>
             </TituloContainer>
             <FiltroContainer>

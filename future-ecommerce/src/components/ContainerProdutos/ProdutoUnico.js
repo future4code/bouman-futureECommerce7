@@ -4,7 +4,7 @@ import styled from "styled-components"
 const MainContainer = styled.div`
     border: 1px dashed orange;
     width: 24%;
-    margin-bottom: 10px;
+    margin: 0 0.5% 10px 0.5%;
     padding: 4px;
 `
 
@@ -22,17 +22,12 @@ const BotaoAdicionar = styled.button`
 `
 
 function ProdutoUnico(props){
-    // const aoClicarAdicionar = () => {
-    //     const produto = {props.produtosParaExibir.id}
-    //     props.mostrarCarrinho(produto)
-    // }
     return (
         <MainContainer>
             <ImagemProduto src={props.produtosParaExibir.imgURL}/>
             <p>{props.produtosParaExibir.name}</p>
-            <p>R${props.produtosParaExibir.price}</p>
+            <p>R${parseFloat(props.produtosParaExibir.price).toFixed(2)}</p>
             <BotaoAdicionar onClick={() => {
-                console.log("cliquei", props.produtosParaExibir.id)
                 props.mostrarCarrinho(props.produtosParaExibir.id)}}>Adicionar ao Carrinho</BotaoAdicionar>
         </MainContainer>
     )
