@@ -60,15 +60,28 @@ class ContainerEcommerce extends React.Component {
         }
     }
 
+    filtrarProdutos = (arg1, arg2, arg3) => {
+        const listaProdutosCopia = arrayDeProdutos
+        let listaProdutosFiltrada = listaProdutosCopia.filter( cadaProduto => {
+            return cadaProduto.price > arg1
+        })
+        listaProdutosFiltrada = listaProdutosFiltrada.filter( cadaProduto => {
+            return cadaProduto.price < arg2
+        })
+        if (arg3 !== "") {
+            listaProdutosFiltrada = listaProdutosFiltrada.filter( cadaProduto => {
+                /* busca convertendo o campo de busca e o argumento para minúsculas */
+                /* [link: https://stackoverflow.com/questions/35248292/reactjs-tolowercase-is-not-a-function] */
+                return cadaProduto.name.toLocaleLowerCase().includes(arg3.toLocaleLowerCase())
+        })}
+        this.setState({listaProdutos: listaProdutosFiltrada})
+    }
+
     render(){
-        // const produtosParaExibir = this.state.listaProdutos.map( cadaProduto => {
-        //     return <ContainerProdutos listaDeProdutos={cadaProduto} />
-        // })
         return(
             <MainContainer>
-                <ContainerFiltro />
-                <ContainerProdutos listaDosProdutos={this.state.listaProdutos} />
-                {/* {produtosParaExibir} */}
+                <ContainerFiltro transporteDeFiltros={this.filtrarProdutos} listaDosProdutos={this.state.listaProdutos} />
+                <ContainerProdutos listaDosProdutos={this.state.listaProdutos}  />
                 <ContainerCarrinho />
             </MainContainer>
         )
