@@ -3,7 +3,6 @@ import styled from "styled-components"
 import ContainerFiltro from '../ContainerFiltro/ContainerFiltro'
 import ContainerProdutos from '../ContainerProdutos/ContainerProdutos'
 import ContainerCarrinho from '../ContainerCarrinho/ContainerCarrinho'
-import ImagemCarrinho from '../../img/shopping-cart.svg'
 
 
 const MainContainer = styled.div`
@@ -188,7 +187,7 @@ class ContainerEcommerce extends React.Component {
     }
     sortProdutos = (value) =>{
         let listaProdutosCopia = [...this.state.listaProdutos]
-debugger
+
         if(value==="decrescente"){
             listaProdutosCopia.sort(function(a,b){
                 return parseFloat(a.price) > parseFloat(b.price) ? -1 : parseFloat(a.price) < parseFloat(b.price) ? 1 : 0

@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
+import RangeSlider from '../Slider/slider.js'
+
 
 const MainContainer = styled.div`
     border: 1px solid #878787;
     width: 15%;
     border-radius:5px;
-    height:175px;
+    height:220px;
     margin:5px;
 `
 const TituloContainer = styled.div`
@@ -132,9 +134,11 @@ class ContainerFiltro extends React.Component {
                                     onChange={this.controladorInputs}
                     />
                 </FiltroInputFalso>
+                <RangeSlider></RangeSlider>
             </FiltroContainer>
+            
             <TituloContainer>
-                <TituloTexto>Filtro</TituloTexto>
+                <TituloTexto>Buscar</TituloTexto>
                 <TituloTexto>―</TituloTexto>
             </TituloContainer>
             <FiltroContainer>
