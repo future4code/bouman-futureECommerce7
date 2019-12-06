@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
+
 const MainContainer = styled.div`
     border: 1px solid #878787;
     width: 15%;
@@ -69,10 +70,10 @@ class ContainerFiltro extends React.Component {
         this.state = {
             formControls:{
                     valorMin: {
-                        value:""
+                        value: 0
                     },
                     valorMax: {
-                        value:""
+                        value: 1000
                     },
                     filtro: {
                         value:""
@@ -82,11 +83,13 @@ class ContainerFiltro extends React.Component {
     }
 
 /* funções */
-    /* controle de inputs gerais */    
+    /* controle de inputs gerais [link: https://medium.com/@agoiabeladeyemi/the-complete-guide-to-forms-in-react-d2ba93f32825]*/
+    /* copia o formControls e altera somente o valor de acordo com a key name */
     controladorInputs = event => {
         const name = event.target.name;
         const value = event.target.value;
 
+        /* setState usando valor atualizado [link: https://stackoverflow.com/questions/34687091/can-i-execute-a-function-after-setstate-is-finished-updating] */
         this.setState({
             formControls:{
                 ...this.state.formControls,
@@ -95,14 +98,11 @@ class ContainerFiltro extends React.Component {
                 value
                 }
             }
-        });
-        console.log(this.state.formControls)
-
-
-        
+        }, () => {this.props.transporteDeFiltros(this.state.formControls.valorMin.value,
+            this.state.formControls.valorMax.value,
+            this.state.formControls.filtro.value)
+            console.log("funcao aleatoria", this.state.formControls)});
     }
-
-
 
     /* render */
 
