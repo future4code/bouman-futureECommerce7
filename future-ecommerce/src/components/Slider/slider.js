@@ -7,16 +7,11 @@ import { getThemeProps } from '@material-ui/styles';
 /* import AccessAlarmIcon from '@material-ui/icons/AccessAlarm';
 import ThreeDRotation from '@material-ui/icons/ThreeDRotation';
  */
+
 const useStyles = makeStyles({
     root: {
-        width: 100,
+        width: 160,
     }
-        
-    
-    
-     
-    
-    
   });
   
   function valuetext(value) {
@@ -31,13 +26,10 @@ const useStyles = makeStyles({
       setValue(newValue);
       {props.importaValores(value[0],value[1])}
     };
-   
   
     return (
       <div className={classes.root}>
         <Slider
-          
-          
           value={value}
           min={0}
           max={1000}

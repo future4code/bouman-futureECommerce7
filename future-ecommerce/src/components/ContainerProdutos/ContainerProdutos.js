@@ -3,7 +3,6 @@ import styled from "styled-components"
 import ProdutoUnico from '../ContainerProdutos/ProdutoUnico'
 
 const MainContainer = styled.div`
-  
     width: 65%;
 `
 
@@ -16,32 +15,24 @@ const Header = styled.div`
 const Conteudo = styled.div`
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-evenly;
+    justify-content: flex-start;
 `
 
 class ContainerProdutos extends React.Component {
     constructor(props){
         super(props);
-
         this.state = {
             selectStatus : "vazio"
-
         }
     }
 
-
-
     controleFiltro = e => {
-
-        console.log("clicou")
         this.setState({
           selectStatus: e.target.value
         },()=>{
             this.props.organizaProdutos(this.state.selectStatus)
         });
-    
     }
-
 
     render(){
         return (

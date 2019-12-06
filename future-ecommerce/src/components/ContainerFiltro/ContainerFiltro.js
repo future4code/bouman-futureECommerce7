@@ -2,10 +2,9 @@ import React, { Component } from 'react'
 import styled from 'styled-components'
 import RangeSlider from '../Slider/slider.js'
 
-
 const MainContainer = styled.div`
     border: 1px solid #878787;
-    width: 15%;
+    width: 200px;
     border-radius:5px;
     height:220px;
     margin:5px;
@@ -105,7 +104,6 @@ class ContainerFiltro extends React.Component {
             this.state.formControls.filtro.value)
             });
     }
-
 
     inputControladoSlider = (min,max)=>{
         this.setState({

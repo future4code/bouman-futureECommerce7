@@ -4,7 +4,7 @@ import styled from "styled-components"
 const MainContainer = styled.div`
     border: 1px dashed orange;
     width: 24%;
-    margin-bottom: 10px;
+    margin: 0 0.5% 10px 0.5%;
     padding: 4px;
 `
 

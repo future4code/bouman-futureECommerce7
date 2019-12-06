@@ -19,7 +19,7 @@ const ImgCarrinho =styled.img`
     border:1px solid black;
     border-radius:50%; 
     height:75px;
-    
+    background-color: white;
 `;
 
 const arrayDeProdutos = [
@@ -67,9 +67,6 @@ const arrayDeProdutos = [
 class ContainerEcommerce extends React.Component {
     constructor(props) {
         super(props)
-
-        
-
         this.state = {
             listaProdutos: arrayDeProdutos,
             listaCarrinho: [],
@@ -81,13 +78,10 @@ class ContainerEcommerce extends React.Component {
     componentDidMount(){
         const arrCarrinhoStorage = JSON.parse(localStorage.getItem('arrCarrinho')) != null ?  JSON.parse(localStorage.getItem('arrCarrinho')) : []
         const valorCarrinhoStorage = localStorage.getItem('valorCarrinho') != null ?  localStorage.getItem('valorCarrinho') : 0.00
-        
 
         this.setState({
             listaCarrinho:arrCarrinhoStorage,
             totalCarrinho:valorCarrinhoStorage
-            
-
         })
     }
 
@@ -112,10 +106,9 @@ class ContainerEcommerce extends React.Component {
         })}
         this.setState({listaProdutos: listaProdutosFiltrada})
     }
+
     listarItensCarrinho = (idProduto) => {
-        console.log("id", idProduto)
         const listaCarrinhoCopia = [...this.state.listaCarrinho]
-        /* debugger */
         if (listaCarrinhoCopia.length === 0) {
             const indexDoItem = arrayDeProdutos.findIndex (produto => {
                 return produto.id === idProduto
@@ -145,18 +138,11 @@ class ContainerEcommerce extends React.Component {
                 }
             
         }
-        
-       /*  let totalCarrinhoCopia = 0
-        for (const item of listaCarrinhoCopia){
-            totalCarrinhoCopia += item.preco*item.quantidade
-        } */
 
-        this.setState({ listaCarrinho: listaCarrinhoCopia/* ,
-                        totalCarrinho: totalCarrinhoCopia */
+        this.setState({ listaCarrinho: listaCarrinhoCopia,
         },()=>{
             this.atualizarPrecoTotal()
         })
-        
     }
 
     atualizarPrecoTotal =() =>{
@@ -175,16 +161,12 @@ class ContainerEcommerce extends React.Component {
         })
 
         listaCarrinhoCopia.splice(indexARemover,1)
-        
-        /* let totalCarrinhoCopia = 0
-        for (const item of listaCarrinhoCopia){
-            totalCarrinhoCopia += item.preco*item.quantidade
-        } */
 
-        this.setState({listaCarrinho:listaCarrinhoCopia/* , totalCarrinho: totalCarrinhoCopia */},() =>{
+        this.setState({listaCarrinho:listaCarrinhoCopia},() =>{
             this.atualizarPrecoTotal()
         })
     }
+
     sortProdutos = (value) =>{
         let listaProdutosCopia = [...this.state.listaProdutos]
 
@@ -215,8 +197,6 @@ class ContainerEcommerce extends React.Component {
         })
     }
 
-    
-
     render(){
         return(
             <MainContainer>
@@ -225,7 +205,6 @@ class ContainerEcommerce extends React.Component {
                 {this.state.estadoCarrinho && 
                 <ContainerCarrinho removeItem={this.removerProduto} valorTotal={this.state.totalCarrinho} listaItensCarrinho={this.state.listaCarrinho}/>}
                 <ImgCarrinho onClick={this.aparecerCarrinho} src="https://cdn0.iconfinder.com/data/icons/shopping-cart-26/1000/Shopping-Basket-03-512.png"/>
-
             </MainContainer>
         )
     }
