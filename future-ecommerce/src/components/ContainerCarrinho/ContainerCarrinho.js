@@ -5,7 +5,6 @@ const MainContainer = styled.div`
     border: 1px solid #878787;
     width: 15%;
     border-radius:5px;
-    height:175px;
     margin:5px;
 `
 

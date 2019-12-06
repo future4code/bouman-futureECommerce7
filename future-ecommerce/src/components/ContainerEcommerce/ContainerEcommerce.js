@@ -7,9 +7,8 @@ import ImagemCarrinho from '../../img/shopping-cart.svg'
 
 
 const MainContainer = styled.div`
-    border: 1px solid red;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
     height: 100vh;
 `
 const ImgCarrinho =styled.img`
@@ -69,12 +68,33 @@ const arrayDeProdutos = [
 class ContainerEcommerce extends React.Component {
     constructor(props) {
         super(props)
+
+        
+
         this.state = {
             listaProdutos: arrayDeProdutos,
             listaCarrinho: [],
             totalCarrinho:0.00,
             estadoCarrinho:false
         }
+    }
+
+    componentDidMount(){
+        const arrCarrinhoStorage = JSON.parse(localStorage.getItem('arrCarrinho')) != null ?  JSON.parse(localStorage.getItem('arrCarrinho')) : []
+        const valorCarrinhoStorage = localStorage.getItem('valorCarrinho') != null ?  localStorage.getItem('valorCarrinho') : 0.00
+        
+
+        this.setState({
+            listaCarrinho:arrCarrinhoStorage,
+            totalCarrinho:valorCarrinhoStorage
+            
+
+        })
+    }
+
+    componentDidUpdate(){
+        localStorage.setItem("arrCarrinho",JSON.stringify(this.state.listaCarrinho))
+        localStorage.setItem("valorCarrinho",this.state.totalCarrinho)
     }
 
     filtrarProdutos = (arg1, arg2, arg3) => {

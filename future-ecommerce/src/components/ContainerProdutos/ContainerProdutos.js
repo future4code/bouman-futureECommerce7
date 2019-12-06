@@ -3,7 +3,7 @@ import styled from "styled-components"
 import ProdutoUnico from '../ContainerProdutos/ProdutoUnico'
 
 const MainContainer = styled.div`
-    border: 1px solid purple;
+  
     width: 65%;
 `
 
@@ -47,7 +47,7 @@ class ContainerProdutos extends React.Component {
         return (
             <MainContainer>
                 <Header>
-                    <p>Quantidade de produtos: </p>
+                <p>Quantidade de produtos: {this.props.listaDosProdutos.length}</p>
                     <select value={this.state.selectStatus} onChange={this.controleFiltro}>
                     <option value="vazio"></option>
                         <option value="crescente">Preço: Crescente</option>
